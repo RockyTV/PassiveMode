@@ -8,7 +8,7 @@ function OnPlayerChat(args)
 	if args.text == "/passive" or args.text == "/afk" then
         --args.player:SendChatMessage("You just used the /passive command", color)
 		if onlyAdmins == true then
-			if table.find(adminsList, args.player:GetSteamId().id) then
+			if isAdmin(args.player) then
 				if peaceful[args.player:GetSteamId().id] == nil then
 					peaceful[args.player:GetSteamId().id] = args.player
 					local allowDamage = false
@@ -53,6 +53,18 @@ function OnPlayerDeath(args)
     --Network:Send(args.player, "AllowDamage", allowDamage)
 end
 
+function isAdmin(player)
+	local idstring = ""
+	for i,v in ipairs(adminsList) do
+		idstring = idstring .. v .. " "
+	end
+	
+	if(string.match(idstring, tostring(player:GetSteamId()))) then
+		return true
+	end
+	return false
+end
+
 function SendTables()
 	numTicks = numTicks + 1
 	if timer:GetSeconds() > 1 then
@@ -64,5 +76,4 @@ end
 
 Events:Subscribe("PlayerChat", OnPlayerChat)
 Events:Subscribe("PlayerDeath", OnPlayerDeath)
-
 Events:Subscribe("PreTick", SendTables)

@@ -1,12 +1,16 @@
--- PassiveMode originally by RockyTV https://github.com/RockyTV/PassiveMode
--- Redone by Anzu https://github.com/smithb895/PassiveMode
+-- Name: PassiveMode
+-- Version: 1.1
+-- Description: allows the player to type a command and become passive, not being damaged and not damaging other players.
+-- Authors: RockyTV, Anzu
+-- Original Release: December 21, 2013
+-- Update Release: December 24, 2013
 
 local allowDamage = true
 passives = {}
 
 function WeaponDamage(args)
     if passives[args.attacker:GetSteamId().id] ~= nil or passives[LocalPlayer:GetSteamId().id] ~= nil then
-        allowDamage = false
+        return false
     end
 	return allowDamage
 end
@@ -52,13 +56,13 @@ end
 function RenderTag()
 	if Game:GetState() ~= GUIState.Game then return end
 	if LocalPlayer:GetWorld() ~= DefaultWorld then return end
-    for id,plyObj in pairs(passives) do
+	for id,plyObj in pairs(passives) do
 		if passives[id] ~= nil then -- If passive, draw tag
-            local playerPos = plyObj:GetPosition()
-            local dist = playerPos:Distance2D( Camera:GetPosition() )
-            if dist < 1000 then
-                DrawPassiveTag( playerPos, dist )
-            end
+			local playerPos = plyObj:GetPosition()
+			local dist = playerPos:Distance2D( Camera:GetPosition() )
+			if dist < 1000 then
+					DrawPassiveTag( playerPos, dist )
+			end
 		end
 	end
 end

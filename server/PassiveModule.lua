@@ -5,7 +5,7 @@
 -- Original Release: December 21, 2013
 -- Update Release: December 24, 2013
 
-local version = 1.1
+local version = 1.2
 
 class 'PassiveModule'
 

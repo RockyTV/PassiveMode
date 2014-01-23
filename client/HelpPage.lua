@@ -16,7 +16,7 @@ function Passive:__init()
 end
 
 function Passive:ModulesLoad()
-    Events:FireRegisteredEvent( "HelpAddItem",
+    Events:Fire( "HelpAddItem",
         {
             name = "Passive/AFK Mode",
             text = 
@@ -27,7 +27,7 @@ function Passive:ModulesLoad()
 end
 
 function Passive:ModuleUnload()
-    Events:FireRegisteredEvent( "HelpRemoveItem",
+    Events:Fire( "HelpRemoveItem",
         {
             name = "Passive/AFK Mode"
         } )
